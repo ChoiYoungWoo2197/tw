@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/blank :: layout (~{::title}, ~{::main})}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+</head>
+<body>
+
+<main>
+
+    <form class="group-border bg-white mt-5" th:action="@{/authorization/login}" method="post" style="width: 300px">
+        <h1 class="font-weight-bold pb-3">Login</h1>
+        <div class="my-3">
+            <div class="mb-3">
+                <div class="alert alert-danger" role="alert"
+                     th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']}"
+                     th:text="${session['SPRING_SECURITY_LAST_EXCEPTION']?.message}">
+                    A simple danger alert—check it out!
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail1" th:text="#{menu.email}">Email</label>
+                <input type="text" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1" th:text="#{menu.password}">Password</label>
+                <input type="password" class="form-control" name="password" id="exampleInputPassword1" required>
+            </div>
+        </div>
+        <div class="form-buttons mb-0">
+            <button type="submit" class="btn" th:text="#{menu.submit}">Submit</button>
+        </div>
+    </form>
+
+    <ul class="nav justify-content-center">
+        <li class="nav-link">
+            <a  class="text-white" href="#">비밀번호 찾기</a>
+        </li>
+        <li class="nav-link">
+            <a class="text-white" th:href="@{/authorization/registration}" th:text="#{label.form.registrationLink}">registration</a>
+        </li>
+    </ul>
+</main>
+</body>
+</html>

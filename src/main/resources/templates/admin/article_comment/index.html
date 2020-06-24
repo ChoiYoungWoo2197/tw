@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Article Comment</title>
+</head>
+<body>
+
+<ul th:fragment="comments (comments)" class="comments">
+    <li th:each="comment : ${comments}">
+        <span class="author" th:text="${comment.author}">작성자</span>
+        <span class="date" th:text="${comment.createdAt}">작성일</span>
+        <div class="content" th:text="${comment.content}">글 내용</div>
+    </li>
+</ul>
+
+</body>
+</html>

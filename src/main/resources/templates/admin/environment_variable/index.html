@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main>
+
+
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">환경변수 - 목록</div>
+    </div>
+
+    <div class="content">
+
+        <table class="table">
+            <colgroup>
+                <col width="80px">
+                <col width="15%">
+                <col width="15%">
+                <col width="20%">
+                <col width="*">
+                <col width="130px">
+                <col width="130px">
+                <col width="80px">
+                <col width="80px">
+                <col width="80px">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">code</th>
+                <th scope="col">name</th>
+                <th scope="col">value</th>
+                <th scope="col">description</th>
+                <th scope="col">created at</th>
+                <th scope="col">updated at</th>
+                <th scope="col">보기</th>
+                <th scope="col">수정</th>
+                <th scope="col">삭제</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="data : ${pages.content}">
+                    <td th:text="${data.id}" class="text-center">순번</td>
+                    <td th:text="${data.code}" class="text-center">코드</td>
+                    <td th:text="${data.name}" class="text-center">이름</td>
+                    <td th:text="${data.value}" class="text-center">값</td>
+                    <td th:text="${data.description}">설명</td>
+                    <td th:text="${data.createdAt}" class="text-center">생성일</td>
+                    <td th:text="${data.updatedAt}" class="text-center">수정일</td>
+                    <td class="text-center">
+                        <a th:href="@{/admin/environment-variable/{dataId}(dataId=${data.id})}">보기</a>
+                    </td>
+                    <td class="text-center">
+                        <a th:href="@{/admin/environment-variable/{dataId}/edit(dataId=${data.id})}">수정</a>
+                    </td>
+                    <td class="text-center">
+                        <a th:href="@{/admin/environment-variable/{dataId}(dataId=${data.id})}" th:data-destroy-btn="${data.name}">삭제</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col">
+                <div th:insert="~{share/pagination :: basic}"></div>
+            </div>
+        </div>
+
+        <div class="buttons-wrap text-right">
+            <a class="btn fas fa-list" th:href="@{/admin/environment-variable-group}" role="button">환경변수 그룹 목록</a>
+            <a class="btn fas fa-file" th:href="@{/admin/environment-variable/create(groupId=${environmentVariableGroup.id})}" role="button">환경 변수 생성</a>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

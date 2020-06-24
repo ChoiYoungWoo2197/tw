@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main>
+
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">게시판 그룹 - 목록</div>
+    </div>
+
+    <div class="content">
+
+        <table class="table">
+            <colgroup>
+                <col width="80px">
+                <col width="15%">
+                <col width="15%">
+                <col width="15%">
+                <col width="*">
+                <col width="130px">
+                <col width="130px">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">code</th>
+                <th scope="col">name</th>
+                <th scope="col">skin</th>
+                <th scope="col">description</th>
+                <th scope="col">created at</th>
+                <th scope="col">updated at</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="group : ${pages.content}">
+                <th scope="row" th:text="${group.id}">순번</th>
+                <td th:text="${group.code}" class="text-center">코드</td>
+                <td class="text-center font-weight-bold">
+                    <a th:href="${#mvc.url('admin.ArticleGroup#show').arg(0, group.id).build()}" th:text="${group.name}">게시판명</a>
+                </td>
+                <td th:text="${group.skin}" class="text-center">스킨</td>
+                <td th:text="${group.description}">설명</td>
+                <td th:text="${group.createdAtText}" class="text-center">생성일</td>
+                <td th:text="${group.updatedAtText}" class="text-center">수정일</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col">
+                <div th:insert="~{share/pagination :: basic}"></div>
+            </div>
+        </div>
+        <div class="buttons-wrap text-right">
+            <a th:href="${#mvc.url('admin.ArticleGroup#create').build()}" class="btn fas fa-file">생성</a>
+        </div>
+    </div>
+
+
+</main>
+
+</body>
+</html>

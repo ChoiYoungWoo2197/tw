@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<main>
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">캘린더 이벤트 - 목록</div>
+    </div>
+
+    <div class="content">
+        <div id="calendar"></div>
+        <input type="hidden" name="calendarId" th:value="${calendarId}">
+    </div>
+
+    <div name="myModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" name="myModalLabel">Modal title</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <input name="start" type="hidden" >
+                    <input name="end" type="hidden" >
+                </div>
+                <div class="modal-body">
+                    <input name="myModalContent" type="text" class="form-control" placeholder="일정을 입력하세요.">
+                </div>
+                <div class="modal-footer">
+                    <button name="create"  type="button" class="btn btn-primary">휴일 지정</button>
+                    <button name="update"  type="button" class="btn btn-primary">수정</button>
+                    <button name="destroy" type="button" class="btn btn-primary">휴일 해제</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+</body>
+</html>

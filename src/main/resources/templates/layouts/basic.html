@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="layout (title, content, links, scripts)">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+
+    <!--레이아웃 기본 제목-->
+    <title th:replace="${title}">layout</title>
+</head>
+<body>
+
+<div class="site user container-fluid p-0">
+    <div class="site-header">
+        <header class="max-width">
+            <div class="logo"><img th:src="@{/images/cmtinfo_logo2.svg}"></div>
+            <nav>
+                <ul class="header-nav2">
+                    <li>
+                        <a class="link-admin" th:href="@{/admin}">관리자모드</a>
+                    </li>
+                    <li>
+                        <div class="user-info dropdown-toggle" type="button" id="dropdownUserInfo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <ul>
+                                <li class="department">NW 보안팀</li>
+                                <li class="user">홍길동</li>
+                            </ul>
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUserInfo">
+                            <button class="dropdown-item" type="button">정보수정</button>
+                            <button class="dropdown-item" type="button">...</button>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" th:href="@{/authorization/login}">로그아웃</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+
+    <div class="auto-height">
+        <div class="site-body max-width">
+            <div class="side-bar">
+                <div class="top_info">
+                    <dl class="operating-cycle">
+                        <dt>2020 주기</dt>
+                        <dd>
+                            <a href="#none"><i aria-hidden="true" class="fa fa-angle-left"></i></a>
+                            <span>2020.01.01 ~ 2020.12.31</span>
+                            <a href="#none"><i aria-hidden="true" class="fa fa-angle-right"></i></a>
+                        </dd>
+                    </dl>
+                    <ul class="approval-state">
+                        <li>결재승인
+                            <div>1</div>
+                        </li>
+                        <li>결재요청
+                            <div>2</div>
+                        </li>
+                        <li>결재반려
+                            <div>3</div>
+                        </li>
+                    </ul>
+                </div>
+<!--                <div th:replace="fragments/navbar :: user"></div>-->
+            </div>
+
+            <main class="site-content">
+                <div th:replace="${content}"></div>
+            </main>
+
+        </div>
+    </div>
+    <div th:insert="/layouts/share/footer :: basic" class="site-footer">
+
+    </div>
+</div>
+
+<!--외부 의존 스크립트-->
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+
+<!--페이지 스크립트-->
+<th:block th:replace="${scripts}"/>
+
+</body>
+</html>

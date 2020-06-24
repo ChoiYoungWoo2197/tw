@@ -1,0 +1,61 @@
+ <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{::script})}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    loadEditor();
+</script>
+
+
+<body>
+
+<main>
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">캘린더 - 생성</div>
+    </div>
+
+    <div class="content" th:object="${calendarCreateDto}">
+
+        <div th:if="${#fields.hasAnyErrors()}">
+            <div class="alert alert-danger" role="alert"
+                 th:each="err : ${#fields.allErrors()}" th:text="${err}">
+                Input is incorrect
+            </div>
+        </div>
+
+        <form th:action="@{/admin/calendars}" method="post" id="calendar-create-form" class="group-border">
+            <div class="form-group">
+                <label for="title" class="req">제목</label>
+                <input type="text" class="form-control" id="title" th:field="*{title}" th:classappend="${#fields.hasErrors('title')}? 'is-invalid'" placeholder="제목을 입력하세요.">
+            </div>
+            <div class="form-group">
+                <label for="code" class="req">코드</label>
+                <input type="text" class="form-control" id="code" th:field="*{code}" th:classappend="${#fields.hasErrors('code')}? 'is-invalid'" placeholder="코드를 입력하세요.">
+            </div>
+            <div class="form-group">
+                <label for="description">설명</label>
+                <textarea id="description" name="description" th:field="*{description}"></textarea>
+            </div>
+        </form>
+
+        <div class="buttons-wrap text-right">
+            <a th:href="${#mvc.url('admin.Calendar#index').build()}" class="btn seal-icon icon-list">목록</a>
+            <button type="submit" form="calendar-create-form" class="btn seal-icon icon-save">저장</button>
+        </div>
+    </div>
+
+</main>
+
+
+
+</body>
+</html>

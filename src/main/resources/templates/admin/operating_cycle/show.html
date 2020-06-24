@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main>
+
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">운영주기 - 보기</div>
+    </div>
+
+    <div class="content">
+        <table class="table">
+            <colgroup>
+                <col width="160px">
+                <col width="*">
+            </colgroup>
+            <tbody>
+            <tr>
+                <th>제목</th>
+                <td th:text="${operatingCycle.title}"></td>
+            </tr>
+            <tr>
+                <th>설명</th>
+                <td th:text="${operatingCycle.description}"></td>
+            </tr>
+            <tr>
+                <th>운영주기 기간</th>
+                <td th:text="|${operatingCycle.startedAtText} ~ ${operatingCycle.endedAtText}|"></td>
+            </tr>
+            <tr>
+                <th>생성일</th>
+                <td th:text="${operatingCycle.createdAtText}"></td>
+            </tr>
+            <tr>
+                <th>수정일</th>
+                <td th:text="${operatingCycle.updatedAtText}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="buttons-wrap text-right">
+            <a th:href="${#mvc.url('admin.OperatingCycle#destroy').arg(0, operatingCycle.id).build()}"
+               class="btn fas fa-trash" th:data-destroy-btn="${operatingCycle.title}">삭제</a>
+            <a th:href="${#mvc.url('admin.OperatingCycle#edit').arg(0, operatingCycle.id).build()}" class="btn fas fa-edit">수정</a>
+            <!--<a th:href="${#mvc.url('admin.OperatingCycle#index').build()} + '?page=' + ${paginationDto.page}" class="btn fas fa-list">목록</a>-->
+            <a th:href="${#mvc.url('admin.OperatingCycle#index').build() + '?page='}" class="btn fas fa-list">목록</a>
+        </div>
+    </div>
+
+</main>
+
+</body>
+</html>

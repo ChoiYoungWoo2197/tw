@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="basic">
+
+    <!--/*@thymesVar id="pages" type="org.springframework.data.domain.Page"*/-->
+    <!--/*@thymesVar id="uriBuilder" type="org.springframework.web.servlet.support.ServletUriComponentsBuilder"*/-->
+    <nav aria-label="..."
+         th:if="${pages.totalPages gt 0}"
+         th:with="pageNumberOfGroup=5, urlBuilder=${T(org.springframework.web.servlet.support.ServletUriComponentsBuilder).fromCurrentRequest()}">
+
+        <ul class="pagination"
+            th:with="startPage=${pages.number / pageNumberOfGroup * pageNumberOfGroup + 1}">
+
+            <li class="page-item" th:classappend="${pages.isFirst()} ? 'disabled'">
+                <a class="page-link"
+                   th:href="${urlBuilder.replaceQueryParam('page', pages.hasPrevious() ? pages.previousPageable().getPageNumber() + 1 : 1).toUriString()}">
+                    <i aria-hidden="true" class="fa fa-angle-left"></i>
+                </a>
+            </li>
+
+            <li class="page-item"
+                th:each="page : ${#numbers.sequence(startPage, (startPage + pageNumberOfGroup - 1 gt pages.totalPages ? pages.totalPages : startPage + pageNumberOfGroup - 1))}"
+                th:classappend="${page eq pages.number + 1} ? 'active'">
+
+                <a class="page-link"
+                   th:text="${page}"
+                   th:href="${urlBuilder.replaceQueryParam('page', page).toUriString()}"></a>
+            </li>
+
+            <li class="page-item" th:classappend="${pages.isLast()} ? 'disabled'">
+                <a class="page-link"
+                   th:href="${urlBuilder.replaceQueryParam('page', pages.hasNext() ? pages.nextPageable().getPageNumber() + 1 : pages.totalPages).toUriString()}">
+                    <i aria-hidden="true" class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+</body>
+</html>

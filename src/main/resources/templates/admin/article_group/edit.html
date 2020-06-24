@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main>
+
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">게시판 그룹 - 수정</div>
+    </div>
+
+    <div class="content" th:object="${articleGroupUpdateDto}">
+
+        <div th:if="${#fields.hasAnyErrors()}">
+            <div class="alert alert-danger" role="alert"
+                 th:each="err : ${#fields.allErrors()}" th:text="${err}">
+                Input is incorrect
+            </div>
+        </div>
+
+        <form th:action="@{/admin/article-group/{groupId}(groupId=*{id})}" method="post" id="article-group-edit-form" class="group-border">
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="id" th:value="*{id}">
+
+            <div class="form-group">
+                <label for="name" class="req">게시판 이름</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}" th:errorclass="is-invalid">
+            </div>
+            <div class="form-group">
+                <label for="code" class="req">게시판 코드</label>
+                <input type="text" class="form-control" id="code" th:field="*{code}" th:errorclass="is-invalid">
+            </div>
+            <div class="form-group">
+                <label for="skin">스킨</label>
+                <input type="text" class="form-control" id="skin" th:field="*{skin}">
+            </div>
+            <div class="form-group">
+                <label for="description">설명</label>
+                <input type="text" class="form-control" id="description" th:field="*{description}" th:errorclass="is-invalid">
+            </div>
+        </form>
+
+        <div class="buttons-wrap text-right">
+            <a th:href="${#mvc.url('admin.ArticleGroup#index').build()}" class="btn fas fa-list">목록</a>
+<!--            <a th:href="${#mvc.url('admin.ArticleGroup#index').build() + '?page=' + paginationDto.page}" class="btn fas fa-list">목록</a>-->
+            <button type="submit" form="article-group-edit-form" th:href="${#mvc.url('admin.ArticleGroup#update').arg(0, articleGroupUpdateDto.id).build()}" class="btn fas fa-edit">수정</button>
+            <a th:href="${#mvc.url('admin.ArticleGroup#show').arg(0, articleGroupUpdateDto.id).build()}" class="btn fas fa-ban">취소</a>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

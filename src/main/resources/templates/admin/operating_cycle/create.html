@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{::script})}">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script>
+		new flatpickrCompare ({
+			start : "#startedAt",
+			end : "#endedAt"
+		})
+
+		new flatpickrCompare ({
+			start : "#startedAt3",
+			end : "#endedAt3"
+		})
+	</script>
+</head>
+<body>
+
+<main>
+
+	<div class="page-header">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="#none">Home</a></li>
+			<li class="breadcrumb-item">Menu1</li>
+			<li class="breadcrumb-item" aria-current="page">Menu11</li>
+		</ol>
+		<div class="page-title">운영주기 - 생성</div>
+	</div>
+
+	<div class="content" th:object="${operatingCycleCreateDto}">
+
+		<div th:if="${#fields.hasAnyErrors()}">
+			<div class="alert alert-danger" role="alert"
+				 th:each="err : ${#fields.allErrors()}" th:text="${err}">
+				Input is incorrect
+			</div>
+		</div>
+
+		<div class="group-border">
+			<form th:action="@{/admin/operating-cycle}" method="post" id="operating-cycle-create-form" enctype="multipart/form-data">
+				<div class="form-group">
+					<label for="title" class="req">제목</label>
+					<input type="text" class="form-control" id="title" th:field="*{title}"
+						   th:classappend="${#fields.hasErrors('title')}? 'is-invalid'">
+				</div>
+				<div class="form-group">
+					<label class="req">운영주기 기간</label>
+					<input type="text" class="form-control flatpickr" id="startedAt" th:field="*{startedAt}"
+						   th:classappend="${#fields.hasErrors('startedAt')}? 'is-invalid'">
+					<input type="text" class="form-control flatpickr" id="endedAt" th:field="*{endedAt}"
+						   th:classappend="${#fields.hasErrors('endedAt')}? 'is-invalid'">
+				</div>
+				<div class="form-group">
+					<label class="req">운영주기2</label>
+					<input type="text" class="form-control flatpickr" id="startedAt2"
+						   th:classappend="${#fields.hasErrors('startedAt')}? 'is-invalid'">
+				</div>
+				<div class="form-group">
+					<label class="req">운영주기 기간3</label>
+					<input type="text" class="form-control flatpickr" id="startedAt3"
+						   th:classappend="${#fields.hasErrors('startedAt')}? 'is-invalid'">
+					<input type="text" class="form-control flatpickr" id="endedAt3"
+						   th:classappend="${#fields.hasErrors('endedAt')}? 'is-invalid'">
+				</div>
+				<div class="form-group">
+					<label for="description">설명</label>
+					<input type="text" class="form-control" id="description" th:field="*{description}">
+				</div>
+				<div class="form-group">
+					<label>동기 첨부파일</label>
+					<div class="dropzone" id="sync-file-dropzone">
+						<input type="file" name="file" id="file" multiple>
+						<div class="fallback">
+							<input type="hidden" name="asynchronous" th:value="false">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="group-border">
+			<div class="form-group" >
+				<label>비동기 첨부파일</label>
+				<form th:action="@{/admin/operating-cycle/upload}" method="post">
+					<div class="dropzone" id="asyn-file-dropzone">
+						<div class="fallback">
+							<input type="hidden" name="asynchronous" th:value="true">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="buttons-wrap text-right">
+			<button type="submit" form="operating-cycle-create-form" class="btn fas fa-save">저장</button>
+			<!--<a th:href="${#mvc.url('admin.OperatingCycle#index').build() + '?page=' + paginationDto.page}" class="btn fas fa-list">목록</a>-->
+			<a th:href="${#mvc.url('admin.OperatingCycle#index').build() + '?page='}" class="btn fas fa-list">목록</a>
+		</div>
+	</div>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:fragment="layout (title, content)">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" th:href="@{/build/css/main.css}"/>
+    <!--레이아웃 기본 제목-->
+    <title th:replace="${title}">admin layout</title>
+</head>
+<body>
+
+
+<div class="site blank container-fluid p-0">
+
+    <div>
+
+
+        <div class="site-header">
+            <header class="max-width">
+                <div class="logo"><img th:src="@{/images/cmtinfo_logo.svg}"></div>
+            </header>
+        </div>
+
+        <div class="auto-height site-body max-width">
+            <div class="site-content d-flex justify-content-center align-items-center" th:insert="${content}">
+                Layout content
+            </div>
+        </div>
+        <div class="site-footer" th:insert="/layouts/share/footer :: basic">footer</div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

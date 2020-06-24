@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main>
+	
+	<div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">운영주기 - 목록</div>
+    </div>
+    
+	<div class="content">
+		
+		<table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">title</th>
+                <th scope="col">description</th>
+                <th scope="col">started at</th>
+                <th scope="col">ended at</th>
+                <th scope="col">created at</th>
+                <th scope="col">updated at</th>
+                <th scope="col">보기</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="cycle : ${pages.content}">
+                <th scope="row" th:text="${cycle.id}">순번</th>
+                <td th:text="${cycle.title}" class="text-center">제목</td>
+                <td th:text="${cycle.description}">설명</td>
+                <td th:text="${cycle.startedAtText}" class="text-center">생성일</td>
+                <td th:text="${cycle.endedAtText}" class="text-center">수정일</td>
+                <td th:text="${cycle.createdAtText}" class="text-center">생성일</td>
+                <td th:text="${cycle.updatedAtText}" class="text-center">수정일</td>
+                <td class="text-center">
+                    <a th:href="${#mvc.url('admin.OperatingCycle#show').arg(0, cycle.id).build() + '?page=' + (pages.number + 1)}">보기</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col">
+                <div th:insert="~{share/pagination :: basic}"></div>
+            </div>
+        </div>
+		<div class="buttons-wrap text-right">
+            <a th:href="${#mvc.url('admin.OperatingCycle#create').build() + '?page=' + pages.number + 1}" class="btn fas fa-file">생성</a>
+        </div>
+	</div>
+	
+</main>
+
+</body>
+</html>

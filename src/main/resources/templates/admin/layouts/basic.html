@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="layout (title, content, links, scripts)"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <!--레이아웃 기본 제목-->
+    <title th:replace="${title}">admin layout</title>
+
+    <!--외부 의존 스타일-->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{/build/css/admin.css}">
+
+    <!--유틸성 스타일-->
+
+    <!--컴포넌트 스타일-->
+
+    <!--레이아웃 스타일-->
+
+    <!--테마 스타일-->
+
+    <!--페이지 스타일-->
+    <th:block th:replace="${links}"/>
+
+    <style>
+
+
+    </style>
+</head>
+
+<body>
+
+<div class="site admin container-fluid p-0">
+    <header class="site-header">
+        <div class="logo"><img th:src="@{/build/images/cmtinfo_logo.svg}"></div>
+        <nav>
+            <ul class="d-flex">
+                <li><a th:href="@{/}">사용자모드</a></li>
+                <li>alert</li>
+                <li>profile</li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="auto-height">
+        <div class="side-bar">
+            <div th:replace="/admin/layouts/share/navbar :: admin"></div>
+        </div>
+
+        <div class="site-content" th:insert="${content}"></div>
+    </div>
+
+    <div th:insert="/admin/layouts/share/footer :: basic" class="site-footer">footer</div>
+
+</div>
+
+<!--외부 의존 스크립트-->
+<!--<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>-->
+<script type="text/javascript" th:src="@{/build/js/admin.js}"></script>
+
+<!--유틸성 스크립트-->
+
+<!--컴포넌트 스크립트-->
+
+<!--레이아웃 스크립트-->
+
+<!--테마 스크립트-->
+
+<!--페이지 스크립트-->
+<th:block th:replace="${scripts}"/>
+
+</body>
+</html>

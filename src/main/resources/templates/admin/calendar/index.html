@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fullcalendar.min.css}"/>
+</head>
+<body>
+
+<main>
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">캘린더 - 목록</div>
+    </div>
+
+    <div class="content">
+        <table class="table">
+            <colgroup>
+                <col width="80px">
+                <col width="15%">
+                <col width="20%">
+                <col width="*">
+                <col width="130px">
+                <col width="130px">
+                <col width="80px">
+                <col width="100px">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">title</th>
+                <th scope="col">code</th>
+                <th scope="col">description</th>
+                <th scope="col">createdAt</th>
+                <th scope="col">updatedAt</th>
+                <th scope="col">보기</th>
+                <th scope="col">캘린더</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="group : ${pages.content}">
+                <th scope="row" th:text="${group.id}">순번</th>
+                <td th:text="${group.title}" class="text-center">제목</td>
+                <td th:text="${group.code}" class="text-center">코드</td>
+                <td th:utext="${group.description}" class="text-center">설명</td>
+                <td th:text="${group.createdAt}" class="text-center">생성일</td>
+                <td th:text="${group.updatedAt}" class="text-center">수정일</td>
+                <td class="text-center">
+                    <a th:href="${#mvc.url('admin.Calendar#show').arg(0, group.id).build() + '?page=' + (pages.number + 1)}">보기</a>
+                </td>
+                <td class="text-center">
+                    <a th:href="${#mvc.url('admin.Calendar#calendarEventShow').arg(0, group.id).build()}" >캘린더</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div th:insert="~{share/pagination :: basic}"></div>
+        </div>
+    </div>
+    <div class="buttons-wrap text-right">
+        <a th:href="${#mvc.url('admin.Calendar#create').build() + '?page=' + pages.number + 1}" class="btn seal-icon icon-new">생성</a>
+    </div>
+
+</main>
+
+</body>
+</html>

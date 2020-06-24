@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main>
+
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">게시물 - 보기</div>
+    </div>
+
+    <div class="content" th:object="${articlePostDto}">
+        <table class="table">
+            <colgroup>
+                <col width="160px">
+                <col width="*">
+            </colgroup>
+            <tbody>
+            <tr>
+                <th>게시판 이름</th>
+                <td th:text="*{articlePostGroupName + '(' + articlePostGroupId+ ')'}"></td>
+            </tr>
+            <tr>
+                <th>제목</th>
+                <td th:text="*{title}"></td>
+            </tr>
+            <tr>
+                <th>작성자</th>
+                <td th:text="*{author}"></td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td th:text="*{content}"></td>
+            </tr>
+            <tr>
+                <th>생성일</th>
+                <td th:text="*{createdAtText}"></td>
+            </tr>
+            <tr>
+                <th>수정일</th>
+                <td th:text="*{updatedAtText}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="buttons-wrap text-right">
+            <a th:href="${#mvc.url('admin.ArticlePost#destroy').arg(0, articlePostDto.id).build()}"
+               class="btn fas fa-trash" th:data-destroy-btn="${articlePostDto.title}">삭제</a>
+            <a th:href="${#mvc.url('admin.ArticlePost#edit').arg(0, articlePostDto.id).build()}" class="btn fas fa-edit">수정</a>
+<!--            <a th:href="${#mvc.url('admin.Article#index').build() + '?page=' + paginationDto.page}" class="btn fas fa-list">목록</a>-->
+            <a th:href="${#mvc.url('admin.ArticlePost#index').build()} + '?groupId=' + *{articlePostGroupId}" class="btn fas fa-list">목록</a>
+        </div>
+
+        <div th:insert="/admin/article_comment/index :: comments (${comments})">comments</div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

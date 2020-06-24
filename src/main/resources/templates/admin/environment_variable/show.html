@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main>
+
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">환경변수 - 보기</div>
+    </div>
+
+    <h1>환경변수 그룹</h1>
+    <div class="content">
+        <table class="table" th:object="${environmentVariableDto}">
+            <colgroup>
+                <col width="160px">
+                <col width="*">
+            </colgroup>
+            <tbody>
+            <tr>
+                <th>이름</th>
+                <td th:text="*{environmentVariableGroupName}"></td>
+            </tr>
+            <tr>
+                <th>코드</th>
+                <td th:text="*{environmentVariableGroupCode}"></td>
+            </tr>
+            <tr>
+                <th>설명</th>
+                <td th:text="*{environmentVariableGroupDescription}"></td>
+            </tr>
+            <tr>
+                <th>생성일</th>
+                <td th:text="*{environmentVariableGroupCreatedAtText}"></td>
+            </tr>
+            <tr>
+                <th>수정일</th>
+                <td th:text="*{environmentVariableGroupUpdatedAtText}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h1>환경변수</h1>
+        <table class="table" th:object="${environmentVariableDto}">
+            <colgroup>
+                <col width="160px">
+                <col width="*">
+            </colgroup>
+            <tbody>
+            <tr>
+                <th>이름</th>
+                <td th:text="*{name}"></td>
+            </tr>
+            <tr>
+                <th>코드</th>
+                <td th:text="*{code}"></td>
+            </tr>
+            <tr>
+                <th>값</th>
+                <td th:text="*{value}"></td>
+            </tr>
+            <tr>
+                <th>설명</th>
+                <td th:text="*{description}"></td>
+            </tr>
+            <tr>
+                <th>생성일</th>
+                <td th:text="*{createdAtText}"></td>
+            </tr>
+            <tr>
+                <th>수정일</th>
+                <td th:text="*{updatedAtText}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="buttons-wrap text-right">
+            <a th:href="${(#mvc.url('admin.EnvironmentVariable#destroy').arg(0, environmentVariableDto.id)).build()}"
+               class="btn fas fa-trash" th:data-destroy-btn="${environmentVariableDto.name}">삭제</a>
+            <a th:href="${(#mvc.url('admin.EnvironmentVariable#edit').arg(0, environmentVariableDto.id)).build()}"
+               class="btn fas fa-edit">수정</a>
+            <a th:href="${(#mvc.url('admin.EnvironmentVariableGroup#environmentVariableIndex').arg(0, environmentVariableDto.environmentVariableGroupId)).build()}"
+               class="btn fas fa-list">목록</a>
+        </div>
+
+        <div>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{::script})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        new flatpickrCompare ({
+            start : "#startedAt",
+            end : "#endedAt"
+        })
+    </script>
+</head>
+<body>
+
+<main>
+
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">운영주기 - 수정</div>
+    </div>
+
+    <div class="content" th:object="${operatingCycleUpdateDto}">
+
+        <div th:if="${#fields.hasAnyErrors()}">
+            <div class="alert alert-danger" role="alert"
+                 th:each="err : ${#fields.allErrors()}" th:text="${err}">
+                Input is incorrect
+            </div>
+        </div>
+
+        <form th:action="@{/admin/operating-cycle/{operatingCycleId}(operatingCycleId=*{id})}" method="post" id="operating-cycle-edit-form" class="group-border">
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="id" th:value="*{id}">
+
+            <div class="form-group">
+                <label for="title" class="req">제목</label>
+                <input type="text" class="form-control" id="title" th:field="*{title}" th:errorclass="is-invalid">
+            </div>
+            <div class="form-group">
+                <label class="req">운영주기 기간</label>
+                <input type="text" class="form-control flatpickr" id="startedAt" th:field="*{startedAt}" th:errorclass="is-invalid">
+                <input type="text" class="form-control flatpickr" id="endedAt" th:field="*{endedAt}" th:errorclass="is-invalid">
+            </div>
+            <div class="form-group">
+                <label for="description">설명</label>
+                <input type="text" class="form-control" id="description" th:field="*{description}" th:errorclass="is-invalid">
+            </div>
+        </form>
+
+        <div class="buttons-wrap text-right">
+            <!--<a th:href="${#mvc.url('admin.OperatingCycle#index').build() + '?page=' + paginationDto.page}" class="btn fas fa-list">목록</a>-->
+            <a th:href="${#mvc.url('admin.OperatingCycle#index').build() + '?page='}" class="btn fas fa-list">목록</a>
+            <button type="submit" form="operating-cycle-edit-form" th:href="${#mvc.url('admin.OperatingCycle#update').arg(0, operatingCycleUpdateDto.id).build()}" class="btn fas fa-edit">수정</button>
+            <a th:href="${#mvc.url('admin.OperatingCycle#show').arg(0, operatingCycleUpdateDto.id).build()}" class="btn fas fa-ban">취소</a>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

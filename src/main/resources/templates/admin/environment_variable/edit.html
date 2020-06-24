@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main>
+
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">환경변수 - 수정</div>
+    </div>
+
+    <div class="content" th:object="${environmentVariableUpdateDto}">
+
+        <form th:action="@{/admin/environment-variable/{environmentVariableId}(environmentVariableId=${environmentVariableUpdateDto.id})}" method="post" id="environment-variable-create-form" class="group-border">
+            <input type="hidden" name="_method" value="put">
+            <input type="hidden" th:field="*{id}" >
+
+            <div th:if="${#fields.hasAnyErrors()}">
+                <div class="alert alert-danger" role="alert"
+                     th:each="err : ${#fields.allErrors()}" th:text="${err}">
+                    Input is incorrect
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="">환경 변수 그룹</label>
+                <select class="form-control" th:field="*{environmentVariableGroupId}">
+                    <option th:each="group : ${environmentVariableGroups}"
+                            th:text="${group.name}"
+                            th:value="${group.id}"
+                            th:selected="${environmentVariableUpdateDto.environmentVariableGroupId == group.id}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="name" class="req">변수 이름</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}"
+                       th:classappend="${#fields.hasErrors('name')}? 'is-invalid'">
+            </div>
+            <div class="form-group">
+                <label for="code" class="req">변수 코드</label>
+                <input type="text" class="form-control" id="code" th:field="*{code}"
+                       th:classappend="${#fields.hasErrors('code')}? 'is-invalid'">
+            </div>
+            <div class="form-group">
+                <label for="code" class="req">변수 값</label>
+                <input type="text" class="form-control" id="value" th:field="*{value}"
+                       th:classappend="${#fields.hasErrors('value')}? 'is-invalid'">
+            </div>
+            <div class="form-group">
+                <label for="description">변수 설명</label>
+                <input type="text" class="form-control" id="description" th:field="*{description}">
+            </div>
+
+        </form>
+
+        <div class="buttons-wrap text-right">
+            <a th:href="${(#mvc.url('admin.EnvironmentVariableGroup#environmentVariableIndex').arg(0, environmentVariableUpdateDto.environmentVariableGroupId)).build()}" class="btn fas fa-list">목록</a>
+            <button type="submit" form="environment-variable-create-form" class="btn fas fa-edit">저장</button>
+            <a th:href="${(#mvc.url('admin.EnvironmentVariable#show').arg(0, environmentVariableUpdateDto.id)).build()}" class="btn fas fa-ban">취소</a>
+        </div>
+
+    </div>
+
+    <div>
+
+
+
+    </div>
+
+</main>
+
+</body>
+</html>

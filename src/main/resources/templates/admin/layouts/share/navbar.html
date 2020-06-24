@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<nav th:fragment="basic" class="navbar navbar-expand-lg navbar-light bg-primary">
+    <a class="navbar-brand" th:href="@{/}">SEAL</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/theme}">Theme</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<nav th:fragment="admin" class="nav-wrap">
+    <ul class="nav">
+        <li><a th:href="@{/admin/environment-variable-group}">환경변수</a></li>
+        <li>
+            <a href="#menu01" data-toggle="collapse" aria-expanded="false">서비스 설정</a>
+            <ul class="nav2 collapse" id="menu01">
+                <li><a th:href="@{/admin/service}">서비스 설정</a></li>
+                <li><a>서비스 그룹 설정</a></li>
+                <li><a>서비스 부서 설정</a></li>
+            </ul>
+        </li>
+        <li><a>부서 관리</a></li>
+        <li><a th:href="@{/admin/account}">계정 관리</a></li>
+        <li><a th:href="@{/admin/menu}">메뉴 관리</a></li>
+        <li><a>권한 관리</a></li>
+        <li><a th:href="@{/admin/calendars}">공휴일 관리</a></li>
+        <li><a>공통코드 관리</a></li>
+        <li>
+            <a href="#menu02" data-toggle="collapse" aria-expanded="false">로그 관리</a>
+            <ul class="nav2 collapse" id="menu02">
+                <li><a>관리자 행위</a></li>
+                <li><a>로그인 이력</a></li>
+                <li><a>계정 변경 이력</a></li>
+                <li><a>로그 조회</a></li>
+            </ul>
+        </li>
+        <li><a>메일 템플릿 관리</a></li>
+        <li><a th:href="@{/admin/site}">사이트 관리</a></li>
+        <li><a th:href="@{/admin/operating-cycle}">운영주기 관리</a></li>
+        <li><a th:href="@{/admin/article-group}">게시판 관리</a></li>
+    </ul>
+</nav>
+
+<nav th:fragment="user" class="nav-wrap">
+    <ul class="nav">
+        <li>
+            <a data-toggle="collapse" href="#menu01" aria-expanded="false">보호활동</a>
+            <ul class="nav2 collapse" id="menu01">
+                <li><a th:href="@{/user/menu-test}">개인 업무 현황</a></li>
+                <li><a>부서 업무 현황</a></li>
+                <li><a>진행 현황</a></li>
+                <li><a>보호활동 일정표</a></li>
+                <li><a>결재 현황</a></li>
+                <li><a>미완료 업무 관리</a></li>
+                <li><a>기반시설 보호대책 중점과제</a></li>
+                <li><a data-toggle="collapse" href="#menu01-t" aria-expanded="false" aria-controls="menu01-t">테스트</a>
+                    <ul class="nav2 collapse" id="menu01-t">
+                        <li><a>서비스 설정</a></li>
+                        <li><a>서비스 그룹 설정</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a data-toggle="collapse" href="#menu02" aria-expanded="false">자산관리</a>
+            <ul class="nav2 collapse" id="menu02">
+                <li><a>ISC 자산 현황</a></li>
+                <li><a>심사 자산 현황</a></li>
+                <li><a>자산 그룹 관리</a></li>
+                <li><a>자산 유형 설정</a></li>
+            </ul>
+        </li>
+        <li>
+            <a data-toggle="collapse" href="#menu03" aria-expanded="false">위험관리</a>
+            <ul class="nav2 collapse" id="menu03">
+                <li><a>기술적 취약점 점검</a></li>
+                <li><a>기술적 위험 조치</a></li>
+                <li><a>관리적 취약점 점검</a></li>
+                <li><a>관리적 위험 조치</a></li>
+                <li><a>우려사항 설정</a></li>
+                <li><a>취약점 진단 항목 설정</a></li>
+                <li><a>관리적 취약점 부서 설정</a></li>
+                <li><a>관리적 위험시나리오 설정</a></li>
+            </ul>
+        </li>
+        <li>
+            <a data-toggle="collapse" href="#menu04" aria-expanded="false">심사관리</a>
+            <ul class="nav2 collapse" id="menu04">
+                <li><a>결함 조치 현황</a></li>
+                <li><a>심사 문서 관리</a></li>
+                <li><a>대책 명세서</a></li>
+                <li><a>기반시설 보호대책</a></li>
+                <li><a>기반시설 평가 관리</a></li>
+                <li><a>Self-Audit 작업 현황</a></li>
+            </ul>
+        </li>
+        <li>
+            <a data-toggle="collapse" href="#menu05" aria-expanded="false">게시판</a>
+            <ul class="nav2 collapse" id="menu05">
+                <li><a>공지사항</a></li>
+                <li><a>FAQ</a></li>
+                <li><a>QnA</a></li>
+                <li><a>일반 자료실</a></li>
+                <li><a>보안 정책 자료실</a></li>
+            </ul>
+        </li>
+        <li>
+            <a data-toggle="collapse" href="#menu06" aria-expanded="false">통계</a>
+            <ul class="nav2 collapse" id="menu06">
+                <li><a>종합 현황</a></li>
+                <li><a>서비스별 진행 현황</a></li>
+                <li><a>부서별 진행 현황</a></li>
+                <li><a>기간별 진행 현황</a></li>
+                <li><a>서비스별 자산 현황</a></li>
+                <li><a>기반시설 취약점 분석평가</a></li>
+                <li><a>위험도 현황</a></li>
+                <li><a>부서별 Self-Audit</a></li>
+                <li><a>기반시설 정보보호 수준평가</a></li>
+                <li><a>ISMS-P 보안점검</a></li>
+                <li><a>과기정통부 체크리스트</a></li>
+            </ul>
+        </li>
+        <li>
+            <a data-toggle="collapse" href="#menu07" aria-expanded="false">보호활동 설정</a>
+            <ul class="nav2 collapse" id="menu07">
+                <li><a href="#none">통제 항목 현황</a></li>
+                <li><a href="#none">운영 주기 설정</a></li>
+                <li><a href="#none">서비스 부서 확인</a></li>
+                <li><a href="#none">통제 항목 설정</a></li>
+                <li><a href="#none">보호활동 설정</a></li>
+            </ul>
+        </li>
+        <li>
+            <a data-toggle="collapse" href="#menu08" aria-expanded="false">시스템관리</a>
+            <ul class="nav2 collapse" id="menu08">
+                <li><a href="#none">서비스 설정</a></li>
+                <li><a href="#none">계정 설정</a></li>
+                <li><a href="#none">메뉴 설정</a></li>
+                <li><a href="#none">권한 설정</a></li>
+                <li><a href="#none">공통 코드 설정</a></li>
+                <li><a href="#none">공휴일 설정</a></li>
+                <li><a href="#none">계정 변경 이력</a></li>
+                <li><a href="#none">사용자 로그인 이력</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+</body>
+</html>

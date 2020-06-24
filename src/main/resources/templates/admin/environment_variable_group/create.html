@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main>
+
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">환경변수 그룹 - 생성</div>
+    </div>
+
+    <div class="content" th:object="${environmentVariableGroupCreateDto}">
+
+        <div th:if="${#fields.hasAnyErrors()}">
+            <div class="alert alert-danger" role="alert"
+                 th:each="err : ${#fields.allErrors()}" th:text="${err}">
+                Input is incorrect
+            </div>
+        </div>
+
+        <form th:action="@{/admin/environment-variable-group}" method="post" id="environment-variable-group-create-form" class="group-border">
+            <div class="form-group">
+                <label for="name" class="req">그룹 이름</label>
+                <input type="text" class="form-control" id="name" th:field="*{name}" th:classappend="${#fields.hasErrors('name')}? 'is-invalid'">
+            </div>
+            <div class="form-group">
+                <label for="code" class="req">그룹 코드</label>
+                <input type="text" class="form-control" id="code" th:field="*{code}"
+                       th:classappend="${#fields.hasErrors('code')}? 'is-invalid'">
+            </div>
+            <div class="form-group">
+                <label for="description">그룹 설명</label>
+                <input type="text" class="form-control" id="description" th:field="*{description}">
+            </div>
+        </form>
+
+        <div class="buttons-wrap text-right">
+            <button type="submit" form="environment-variable-group-create-form" class="btn fas fa-save">저장</button>
+            <a th:href="${#mvc.url('admin.EnvironmentVariableGroup#index').build() + '?page=' + paginationDto.page}" class="btn fas fa-list">목록</a>
+        </div>
+    </div>
+
+    <div>
+    </div>
+
+</main>
+
+</body>
+</html>

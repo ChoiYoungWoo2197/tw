@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main>
+
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">게시물 - 수정</div>
+    </div>
+
+    <div class="content" th:object="${articleUpdateDto}">
+
+        <ul th:if="${#fields.hasAnyErrors()}">
+            <li class="alert alert-danger" role="alert"
+                 th:each="err : ${#fields.allErrors()}" th:text="${err}">
+                Input is incorrect
+            </li>
+        </ul>
+
+        <form th:action="@{/admin/article/{id}(id=*{id})}" method="post" id="article-edit-form" class="group-border">
+            <input type="hidden" name="_method" value="PUT">
+<!--            <input type="hidden" name="groupId" th:value="*{groupId}">-->
+            <input type="hidden" th:field="*{id}">
+
+            <div class="form-group">
+                <label for="title" class="req">제목</label>
+                <input type="text" class="form-control" id="title" th:field="*{title}" th:classappend="${#fields.hasErrors('title')}? 'is-invalid'">
+            </div>
+            <div class="form-group">
+                <label>작성자</label>
+                <div th:text="*{author_name}"></div>
+            </div>
+            <div class="form-group">
+                <label for="content">내용</label>
+                <input type="text" class="form-control" id="content" th:field="*{content}" th:classappend="${#fields.hasErrors('content')}? 'is-invalid'">
+            </div>
+        </form>
+
+        <div class="buttons-wrap text-right">
+            <a th:href="${#mvc.url('admin.Article#index').build() }" class="btn fas fa-list">목록</a>
+<!--            <a th:href="${#mvc.url('admin.Article#index').build() + '?page=' + paginationDto.page}" class="btn fas fa-list">목록</a>-->
+            <button type="submit" form="article-edit-form" th:href="${#mvc.url('admin.Article#update').arg(0, articleUpdateDto.id).build()}" class="btn fas fa-edit">수정</button>
+            <a th:href="${#mvc.url('admin.Article#show').arg(0, articleUpdateDto.id).build()}" class="btn fas fa-ban">취소</a>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>

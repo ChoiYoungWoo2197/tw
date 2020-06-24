@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layouts/basic :: layout (~{::title}, ~{::main}, ~{}, ~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<main>
+
+    <div class="page-header">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#none">Home</a></li>
+            <li class="breadcrumb-item">Menu1</li>
+            <li class="breadcrumb-item" aria-current="page">Menu11</li>
+        </ol>
+        <div class="page-title">환경변수 그룹 - 보기</div>
+    </div>
+
+    <div class="content">
+        <table class="table">
+            <colgroup>
+                <col width="160px">
+                <col width="*">
+            </colgroup>
+            <tbody>
+            <tr>
+                <th>이름</th>
+                <td th:text="${environmentVariableGroup.name}"></td>
+            </tr>
+            <tr>
+                <th>코드</th>
+                <td th:text="${environmentVariableGroup.code}"></td>
+            </tr>
+            <tr>
+                <th>설명</th>
+                <td th:text="${environmentVariableGroup.description}"></td>
+            </tr>
+            <tr>
+                <th>생성일</th>
+                <td th:text="${environmentVariableGroup.createdAtText}"></td>
+            </tr>
+            <tr>
+                <th>수정일</th>
+                <td th:text="${environmentVariableGroup.updatedAtText}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="buttons-wrap text-right">
+            <a th:href="${#mvc.url('admin.EnvironmentVariableGroup#destroy').arg(0, environmentVariableGroup.id).build()}"
+               class="btn fas fa-trash" th:data-destroy-btn="${environmentVariableGroup.name}">삭제</a>
+            <a th:href="${#mvc.url('admin.EnvironmentVariableGroup#edit').arg(0, environmentVariableGroup.id).build()}" class="btn fas fa-edit">수정</a>
+            <a th:href="${#mvc.url('admin.EnvironmentVariableGroup#index').build()} + '?page=' + ${paginationDto.page}" class="btn fas fa-list">목록</a>
+        </div>
+    </div>
+
+</main>
+
+</body>
+</html>
